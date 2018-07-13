@@ -10,10 +10,13 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
+      - redis
     environment:
       DATABASE_URL: postgres://postgress@postgres/app
   postgres:
-    image: postgres:9.6.2-alpine
+    image: postgres
     environment:
       POSTGRES_USER: postgress
       POSTGRES_DB: app
+  redis:
+    image: redis:4

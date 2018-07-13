@@ -1,9 +1,12 @@
-FROM node:7.7.2-alpine
+FROM node:8
 
 WORKDIR /usr/app
 
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install --silent
+
+RUN yarn install
 
 COPY . .
+
+EXPOSE 3000

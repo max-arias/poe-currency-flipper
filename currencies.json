@@ -1,0 +1,94 @@
+[
+  {
+    "id": 1,
+    "name": "Alteration"
+  },
+  {
+    "id": 2,
+    "name": "Fusing"
+  },
+  {
+    "id": 3,
+    "name": "Alchemy"
+  },
+  {
+    "id": 4,
+    "name": "Chaos"
+  },
+  {
+    "id": 5,
+    "name": "GCP"
+  },
+  {
+    "id": 6,
+    "name": "Exalted"
+  },
+  {
+    "id": 7,
+    "name": "Chrome"
+  },
+  {
+    "id": 8,
+    "name": "Jeweller's Orb"
+  },
+  {
+    "id": 9,
+    "name": "Orb of Chance"
+  },
+  {
+    "id": 10,
+    "name": "Cartographer's Chisel"
+  },
+  {
+    "id": 11,
+    "name": "Orb of Scouring"
+  },
+  {
+    "id": 12,
+    "name": "Blessed Orb"
+  },
+  {
+    "id": 13,
+    "name": "Orb of Regret"
+  },
+  {
+    "id": 14,
+    "name": "Regal Orb"
+  },
+  {
+    "id": 15,
+    "name": "Divine Orb"
+  },
+  {
+    "id": 16,
+    "name": "Vaal Orb"
+  },
+  {
+    "id": 17,
+    "name": "Scroll of Wisdom"
+  },
+  {
+    "id": 18,
+    "name": "Portal Scroll"
+  },
+  {
+    "id": 19,
+    "name": "Armourer's Scrap"
+  },
+  {
+    "id": 20,
+    "name": "Blacksmith's Whetstone"
+  },
+  {
+    "id": 21,
+    "name": "Glassblower's Bauble"
+  },
+  {
+    "id": 22,
+    "name": "Orb of Transmutation"
+  },
+  {
+    "id": 23,
+    "name": "Augmentation"
+  }
+]
