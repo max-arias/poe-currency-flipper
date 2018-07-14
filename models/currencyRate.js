@@ -1,14 +1,14 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var CurrencyRate = sequelize.define('CurrencyRate', {
-    want: DataTypes.STRING,
-    have: DataTypes.STRING,
-    rate: DataTypes.STRING,
+    rate: DataTypes.FLOAT,
   });
 
-  // User.associate = function(models) {
-  //   models.User.hasMany(models.Task);
-  // };
+  CurrencyRate.associate = function (models) {
+    models.CurrencyRate.belongsTo(models.Currency, {as: 'want'});
+    models.CurrencyRate.belongsTo(models.Currency, {as: 'have'});
+  };
 
   return CurrencyRate;
 };

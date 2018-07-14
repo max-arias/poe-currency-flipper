@@ -5,18 +5,21 @@ services:
     command: yarn start
     volumes:
       - .:/usr/app/
-      - /usr/app/node_modules
     ports:
       - "3000:3000"
     depends_on:
       - postgres
       - redis
     environment:
-      DATABASE_URL: postgres://postgress@postgres/app
+      DATABASE_URL: postgres://postgress@postgres/poe-currency-flipper
   postgres:
     image: postgres
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgress
-      POSTGRES_DB: app
+      POSTGRES_DB: poe-currency-flipper
   redis:
     image: redis:4
+    ports:
+      - "6379:6379"
