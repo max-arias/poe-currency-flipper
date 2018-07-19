@@ -6,9 +6,16 @@ const cheerio = require('cheerio');
 const _ = require('lodash');
 require('lodash.combinations');
 
-const currencies = require('./../currencies.json');
+const models  = require('./../models');
 
 const scrapePairs = async () => {
+  const currencies = await models.Currency.findAll();
+
+  console.log(currencies);
+
+  //test
+  return;
+
   const currencyIds = _.map(currencies, 'id');
   const currencyPairs = _.combinations(currencyIds, 2);
   const currencyPairRates = {};

@@ -1,25 +1,26 @@
-version: '2'
+version: '3'
+
 services:
   web:
     build: .
-    command: yarn start
+    command: bash -c "/usr/app/wait-for-it.sh db:5432 -- /usr/app/node_modules/.bin/sequelize db:migrate && /usr/app/node_modules/.bin/sequelize db:seed:all & yarn start"
+    # command: "/wait-for-it.sh", "db:5432", "--", "yarn", "start"]
     volumes:
       - .:/usr/app/
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
-      - postgres
+      - db
       - redis
-    environment:
-      DATABASE_URL: postgres://postgress@postgres/poe-currency-flipper
-  postgres:
+  db:
     image: postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgress
-      POSTGRES_DB: poe-currency-flipper
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=poe-currency-flipper
   redis:
-    image: redis:4
+    image: redis:alpine
     ports:
       - "6379:6379"

@@ -3,8 +3,8 @@ module.exports = {
     username: 'postgres',
     password: '',
     database: 'poe-currency-flipper',
-    host: 'localhost',
-    dialect: "postgres"
+    host: 'db',
+    dialect: 'postgres'
   },
   production: {
     username: process.env.DB_USERNAME,

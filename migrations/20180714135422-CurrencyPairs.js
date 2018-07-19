@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('CurrencyPair', {
+    return queryInterface.createTable('CurrencyPairs', {
       id: {
         type: Sequelize.INTEGER, 
         primaryKey: true, 
@@ -12,7 +12,7 @@ module.exports = {
       have: {
         type: Sequelize.INTEGER,
         references: { 
-            model: 'Currency',
+            model: 'Currencies',
             key: 'id'
         },
         allowNull: false
@@ -20,7 +20,7 @@ module.exports = {
       want: {
         type: Sequelize.INTEGER,
         references: { 
-          model: 'Currency',
+          model: 'Currencies',
           key: 'id'
         },
         allowNull: false
@@ -29,6 +29,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CurrencyPair');
+    return queryInterface.dropTable('CurrencyPairs');
   }
 };
