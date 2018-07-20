@@ -2,13 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 const { scrapePairs } = require("./../services/scraper");
-const { storePairs } = require("./../services/database");
 
 /* Initialize scrape jobs */
 router.get('/scrape', async (req, res, next) => {
-  // const scrappedPairs = await scrapePairs();
-  // storePairs(scrappedPairs);
-  res.json({'test': 'test'});
+  const scrapeData = await scrapePairs();
+  res.json(scrapeData);
 });
 
 module.exports = router;

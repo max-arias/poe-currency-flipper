@@ -10,8 +10,11 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+var arenaRouter = require('./routes/arena');
 var scrapeRouter = require('./routes/scraper');
+
 app.use('/', scrapeRouter);
+app.use('/', arenaRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

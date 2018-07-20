@@ -4,7 +4,6 @@ services:
   web:
     build: .
     command: bash -c "/usr/app/wait-for-it.sh db:5432 -- /usr/app/node_modules/.bin/sequelize db:migrate && /usr/app/node_modules/.bin/sequelize db:seed:all & yarn start"
-    # command: "/wait-for-it.sh", "db:5432", "--", "yarn", "start"]
     volumes:
       - .:/usr/app/
     ports:

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('CurrencyPairs', {
+    return queryInterface.createTable('CurrencyRates', {
       id: {
         type: Sequelize.INTEGER, 
         primaryKey: true, 
@@ -25,10 +25,22 @@ module.exports = {
         },
         allowNull: false
       },
+      createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdAt',
+        defaultValue: Sequelize.literal('NOW()')
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedAt',
+        defaultValue: Sequelize.literal('NOW()')
+      }
+    }, {
+      timestamps: true
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CurrencyPairs');
+    return queryInterface.dropTable('CurrencyRates');
   }
 };

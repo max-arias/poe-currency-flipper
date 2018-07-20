@@ -8,7 +8,19 @@ module.exports = {
         primaryKey: true, 
         autoIncrement: true
       },
-      name: Sequelize.STRING
+      name: Sequelize.STRING,
+      createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdAt',
+        defaultValue: Sequelize.literal('NOW()')
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedAt',
+        defaultValue: Sequelize.literal('NOW()')
+      }
+    }, {
+      timestamps: true
     });
   },
 

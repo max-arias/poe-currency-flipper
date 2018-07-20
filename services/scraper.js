@@ -1,70 +1,37 @@
-const q = require('q');
-const rp = require('request-promise');
-const sleep = require('await-sleep');
-const cheerio = require('cheerio');
+const queue = require('bull');
 
 const _ = require('lodash');
 require('lodash.combinations');
 
-const models  = require('./../models');
+
+const { getCurrencies } = require("./../services/database");
 
 const scrapePairs = async () => {
-  const currencies = await models.Currency.findAll();
-
-  console.log(currencies);
-
-  //test
-  return;
-
+  const currencies = await getCurrencies();
   const currencyIds = _.map(currencies, 'id');
-  const currencyPairs = _.combinations(currencyIds, 2);
-  const currencyPairRates = {};
+  const currencyPairs = _.combinations([1, 2, 3], 2);
+  // const currencyPairs = _.combinations(currencyIds, 2);
 
-  console.time('scrapePairs');
+  const ratesQueue = new queue('Rates_Queue', 'redis://redis:6379');
+
+  ratesQueue.process(__dirname + '/../workers/process.js');
 
   for (const pair of currencyPairs) {
     const randomInterval = Math.floor(Math.random() * 250) + 1;
-    console.log('Waiting: ', randomInterval);
+    console.log('Waiting: ', randomInterval, ' Pair: ', pair);
 
-    await sleep(randomInterval);
-
-    const currencyUrl = buildUrl(pair[0], pair[1]);
-    const body = await fetchUrl(currencyUrl);
-    const rates = parsePairResponse(pair, body);
-
-    currencyPairRates[pair[0] + '-' + pair[1]] = rates;
+    ratesQueue.add({
+      pair,
+      url: buildUrl(pair[0], pair[1]),
+    }, {
+      delay: randomInterval
+    });
   }
 
-  console.timeEnd('scrapePairs');
-
-  return currencyPairRates;
-};
-
-const fetchUrl = async (url) => {
-  return await rp({
-      url: url,
-      gzip: true
-  });
-};
-
-const parsePairResponse = (pair, body) => {
-  const $ = cheerio.load(body);
-  const rates = [];
-
-  $('.displayoffer').each(function(i, element) {
-    let rate = $(element).find('.displayoffer-centered').first().find('small').text();
-    rate = rate.replace('←', ':').replace(/ /g,'').replace(/[^\x00-\x7F]/g, '');
-
-    const pairDoc = {
-      want: pair[0],
-      have: pair[1],
-      rate
-    }
-
-    rates.push(pairDoc);
-  });
-
-  return _.uniq(rates);
+  return {
+    currencies,
+    currencyPairs
+  };
 };
 
 const buildUrl = (want, have) => `http://currency.poe.trade/search?league=Incursion&online=x&want=${want}&have=${have}`;
